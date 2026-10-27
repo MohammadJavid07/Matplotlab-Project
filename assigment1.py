@@ -99,7 +99,7 @@ print(tips_df.columns)
 
 # tip değerleri için kutu grafiğini(Box-Plot) oluştur
 plt.figure(figsize=(8,5))
-sns.boxplot(y=tips_df["tip"])
+sns.boxplot(data=tips_df["tip"])
 
 # Grafiğin başlığı ve eksen 
 plt.title("Boxplot for tip")
@@ -110,3 +110,57 @@ plt.tight_layout()
 
 # Grafiği ekranda göstermek
 plt.show()
+
+# ================================================
+# Soru 5: OnlineRetail2.csv veri setini kullanarak günlere göre ortalama satışları Türkçe gün isimleriyle gösteren bir çubuk grafik oluşturmak
+# OnlineRetail2.csv dosyasi okumak
+retail2_df = pd.read_csv(r"D:\Python Codes and Project\Matplotlab-Project\OnlineRetail2.csv")
+print(retail2_df.head())
+
+# Fatura tarihini tarih formatına dönüştür
+retail2_df["InvoiceDate"] = pd.to_datetime(retail2_df["InvoiceDate"], errors="coerce")
+
+# Satış tutarını hesapla: miktar × birim fiyat
+retail2_df["SalesAmount"] = (retail2_df["Quantity"] * retail2_df["UnitPrice"])
+
+# Haftanın günlerini Türkçe olarak tanımlama
+turkish_days = {
+    0: "Pazartesi",
+    1: "Salı",
+    2: "Çarşamba",
+    3: "Perşembe",
+    4: "Cuma",
+    5: "Cumartesi",
+    6: "Pazar" 
+}
+
+# Her satışın haftanın hangi gününde yapıldığını bulalim
+retail2_df["DayNumber"] = retail2_df["InvoiceDate"].dt.day_of_week
+
+# Gün numaralarını Türkçe gün adlarına dönüştürmek
+retail2_df["Day"] = retail2_df["DayNumber"].map(turkish_days)
+
+# Günlere göre ortalama satış tutarını hesaplama
+average_sales = retail2_df.groupby("Day")["SalesAmount"].mean()
+
+# Günleri Pazartesi'den Pazar'a doğru sırala
+average_sales = average_sales.reindex(turkish_days.values())
+
+# Çubuk grafiğini oluştur
+plt.figure(figsize=(10,6))
+plt.bar(average_sales.index, average_sales.values)
+
+# Grafiğin başlığını ve eksen açıklamalarını eklemesi
+plt.title("Haftanın Günlerine Göre Ortalama Satış Tutarı")
+plt.xlabel("Hafta Günleri")
+plt.ylabel("Ortalama Satış Tutarı")
+
+# X eksenindeki gün adlarını döndür
+plt.xticks(rotation=45)
+
+# Grafik düzenini ayarlamak
+plt.tight_layout()
+
+# Grafiği ekranda göstermek
+plt.show()
+
