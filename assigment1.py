@@ -39,3 +39,29 @@ plt.legend()
 
 # Grafiği ekranda göster
 plt.show()
+
+#=================================================================
+#Soru 2: Toplam reklam bütçesi ile satış hacmi arasındaki ilişki
+#Görev: Advertising.csv veri setini kullanarak toplam reklam bütçesi ile satış hacmi arasındaki ilişkiyi gösteren bir saçılım grafiği (scatter plot) oluşturmak.
+advertising_df["Total_Budget"] = (
+    advertising_df["TV"] + advertising_df["Radio"] + advertising_df["Newspaper"]
+)
+
+# Grafiğin boyutlarını belirle
+plt.figure(figsize=(8,5))
+
+# Toplam reklam bütçesi ile satış arasındaki ilişkiyi gösterelim
+plt.scatter(advertising_df["Total_Budget"], advertising_df["Sales"])
+
+# Grafiğin başlığını belirleyelim
+plt.title("Toplam Reklam Bütçesi ve Satış İlişkisi")
+
+# X ve Y eksenleri
+plt.xlabel("Toplam Reklam Bütçesi")
+plt.ylabel("Satış Hacmi")
+
+# Grafiği düzenlemesi
+plt.tight_layout()
+
+# Grafiği ekranda göstermek
+plt.show()
