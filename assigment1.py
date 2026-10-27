@@ -65,3 +65,27 @@ plt.tight_layout()
 
 # Grafiği ekranda göstermek
 plt.show()
+
+
+# =======================================================
+
+#Soru 3: TV, Newspaper, Radio ve Sales için histogram çizimi
+
+# Histogramı çizilecek sütunları bir listeye ekle
+columns = ["TV", "Radio", "Newspaper", "Sales"]
+
+for column in columns:
+    plt.figure(figsize=(8,5))
+# İlgili sütunun histogramını çizmesi
+    plt.hist(advertising_df[column], bins=15 , edgecolor = "black")
+# Grafiğin başlığı
+    plt.title(f"{column} histogram")
+ # X ve Y eksenleri
+    plt.xlabel(column)
+    plt.ylabel("frekans")
+
+# Grafik düzeni
+    plt.tight_layout()
+
+# Grafiği ekranda göstermek
+    plt.show()
