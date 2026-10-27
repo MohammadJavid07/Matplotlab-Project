@@ -4,6 +4,7 @@
 #Gerekli kütüphaneleri içe aktar
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Advertising.csv dosyasını okumak
 advertising_df = pd.read_csv(r"D:\Python Codes and Project\Matplotlab-Project\Advertising.csv")
@@ -89,3 +90,23 @@ for column in columns:
 
 # Grafiği ekranda göstermek
     plt.show()
+# ======================================================
+# Question 4: tips.csv dosyası için Boxplot çizimi
+
+# tips.csv dosyasi okumak
+tips_df = pd.read_csv(r"D:\Python Codes and Project\Matplotlab-Project\tips.csv")
+print(tips_df.columns)
+
+# tip değerleri için kutu grafiğini(Box-Plot) oluştur
+plt.figure(figsize=(8,5))
+sns.boxplot(y=tips_df["tip"])
+
+# Grafiğin başlığı ve eksen 
+plt.title("Boxplot for tip")
+plt.ylabel("tip miktari")
+
+# Grafik düzenini ayarlamak
+plt.tight_layout()
+
+# Grafiği ekranda göstermek
+plt.show()
